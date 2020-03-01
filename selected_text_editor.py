@@ -17,22 +17,23 @@ def get_selected_text():
     return text
 
 
-def setClipboard(text):
+def set_clipboard(text):
     with os.popen('xclip -selection c', 'w') as outf:
         outf.write(text)
 
 
 def copy_text(event):
-    text = entry.get('1.0', 'end-1c')
-    setClipboard(text)
+    text = entry.get('1.0', 'end-1c')  # select all text in entry box
+    set_clipboard(text)
     window.destroy()
 
 
-window = tk.Tk()
-entry = tk.Text(window, width=400, height=40, font=('Calibri 16'))
-entry.insert('end', get_selected_text())
-window.bind('<Control-c>', copy_text)
-entry.pack()
-entry.focus()
+if __name__ == '__main__':
+    window = tk.Tk()
+    entry = tk.Text(window, width=400, height=40, font=('Calibri 16'))
+    entry.insert('end', get_selected_text())
+    entry.focus()
+    window.bind('<Control-c>', copy_text)
+    entry.pack()
 
-window.mainloop()
+    window.mainloop()
